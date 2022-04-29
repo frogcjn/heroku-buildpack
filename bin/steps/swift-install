@@ -2,7 +2,6 @@ DYNAMIC_LIBRARY_REGEX=".*\.so\(\.[0-9]+\)*\'"
 
 puts-step "Installing dynamic libraries"
 mkdir -p $BUILD_DIR/.swift-lib
-SWIFT_PREFIX="$(swiftenv prefix)"
 find -L .build/$SWIFT_BUILD_CONFIGURATION -regex "$DYNAMIC_LIBRARY_REGEX" -type f -exec cp -a {} $BUILD_DIR/.swift-lib \; || true 2>/dev/null
 
 puts-step "Installing binaries"
