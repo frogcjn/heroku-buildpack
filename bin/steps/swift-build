@@ -1,2 +1,3 @@
-puts-step "Building package ($SWIFT_BUILD_CONFIGURATION configuration)"
-swift build $SWIFT_BUILD_FLAGS -c "$SWIFT_BUILD_CONFIGURATION"
+puts-step "Building package"
+mkdir -p $CACHE_DIR/spm
+swift build -c release --static-swift-stdlib $SWIFT_BUILD_FLAGS --cache-path $CACHE_DIR/spm

@@ -1,0 +1,30 @@
+mkdir -p "$CACHE_DIR/$STACK"
+
+case $STACK in
+    "heroku-18")
+    OS_SHORT = ubuntu1804
+    OS_LONG = ubuntu18.04
+    ;;
+
+    "heroku-20")
+    OS_SHORT = ubuntu2004
+    OS_LONG = ubuntu20.04
+    ;;
+
+    *)
+    echo
+    echo " !     The current stack $STACK is not supported."
+    echo " !     Please upgrade your stack using the 'heroku stack:set' command or via the dashboard."
+    echo
+    exit 1
+
+    exit 1
+    ;;
+esac
+
+puts-step "Installing Swift $SWIFT_VERSION"
+SWIFT_PACKAGE=swift-$SWIFT_VERSION-RELEASE-$OS_LONG.tar.gz
+wget -N -P "$CACHE_DIR/$STACK" https://download.swift.org/swift-$SWIFT_VERSION-release/$OS_SHORT/swift-$SWIFT_VERSION-RELEASE/$SWIFT_PACKAGE
+
+tar -xzf $SWIFT_PACKAGE --directory / --strip-components=1
+chmod -R o+r /usr/lib/swift
