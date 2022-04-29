@@ -2,13 +2,13 @@ mkdir -p "$CACHE_DIR/$STACK"
 
 case $STACK in
     "heroku-18")
-    OS_SHORT = ubuntu1804
-    OS_LONG = ubuntu18.04
+    OS_SHORT=ubuntu1804
+    OS_LONG=ubuntu18.04
     ;;
 
     "heroku-20")
-    OS_SHORT = ubuntu2004
-    OS_LONG = ubuntu20.04
+    OS_SHORT=ubuntu2004
+    OS_LONG=ubuntu20.04
     ;;
 
     *)
