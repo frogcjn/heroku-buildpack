@@ -26,5 +26,5 @@ puts-step "Installing Swift $SWIFT_VERSION"
 SWIFT_PACKAGE=swift-$SWIFT_VERSION-RELEASE-$OS_LONG.tar.gz
 wget -N -P "$CACHE_DIR/$STACK" https://download.swift.org/swift-$SWIFT_VERSION-release/$OS_SHORT/swift-$SWIFT_VERSION-RELEASE/$SWIFT_PACKAGE
 
-tar -xzf $SWIFT_PACKAGE --directory / --strip-components=1
+tar -xzf "$CACHE_DIR/$STACK/$SWIFT_PACKAGE" --directory / --strip-components=1
 chmod -R o+r /usr/lib/swift
