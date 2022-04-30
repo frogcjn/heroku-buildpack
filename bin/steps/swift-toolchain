@@ -22,12 +22,21 @@ case $STACK in
     ;;
 esac
 
-puts-step "Downloading Swift $SWIFT_VERSION"
-SWIFT_PACKAGE=swift-$SWIFT_VERSION-RELEASE-$OS_LONG.tar.gz
-wget -N --show-progress -P "$CACHE_DIR/$STACK" https://download.swift.org/swift-$SWIFT_VERSION-release/$OS_SHORT/swift-$SWIFT_VERSION-RELEASE/$SWIFT_PACKAGE
+if [ -f "$CACHE_DIR/$STACK/swift-$SWIFT_VERSION.installed" ]; then
+    puts-step "Swift $SWIFT_VERSION is already installed"
+else
+    puts-step "Downloading Swift $SWIFT_VERSION"
+    SWIFT_PACKAGE=swift-$SWIFT_VERSION-RELEASE-$OS_LONG.tar.gz
+    mkdir -p /tmp/swift
+    wget -N --show-progress -P "/tmp/swift" https://download.swift.org/swift-$SWIFT_VERSION-release/$OS_SHORT/swift-$SWIFT_VERSION-RELEASE/$SWIFT_PACKAGE
 
-puts-step "Unpacking Swift toolchain"
-mkdir -p "$HOME/swift"
-tar -xzf "$CACHE_DIR/$STACK/$SWIFT_PACKAGE" --directory "$HOME/swift" --strip-components=2
-chmod -R o+r $HOME/swift/lib/swift
-export PATH=$PATH:$HOME/swift/bin
+    puts-step "Unpacking Swift toolchain"
+    mkdir -p "$CACHE_DIR/$STACK/swift-$SWIFT_VERSION"
+
+    tar -xzf "/tmp/$SWIFT_PACKAGE" --directory "$CACHE_DIR/$STACK/swift-$SWIFT_VERSION" --strip-components=2
+    chmod -R o+r "$CACHE_DIR/$STACK/swift-$SWIFT_VERSION/lib/swift"
+    rm -rf "/tmp/$SWIFT_PACKAGE"
+    touch "$CACHE_DIR/$STACK/swift-$SWIFT_VERSION.installed"
+fi
+
+export PATH=$PATH:$CACHE_DIR/$STACK/swift-$SWIFT_VERSION/bin
