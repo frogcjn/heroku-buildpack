@@ -33,9 +33,9 @@ else
     puts-step "Unpacking Swift toolchain"
     mkdir -p "$CACHE_DIR/$STACK/swift-$SWIFT_VERSION"
 
-    tar -xzf "/tmp/$SWIFT_PACKAGE" --directory "$CACHE_DIR/$STACK/swift-$SWIFT_VERSION" --strip-components=2
+    tar -xzf "/tmp/swift/$SWIFT_PACKAGE" --directory "$CACHE_DIR/$STACK/swift-$SWIFT_VERSION" --strip-components=2
     chmod -R o+r "$CACHE_DIR/$STACK/swift-$SWIFT_VERSION/lib/swift"
-    rm -rf "/tmp/$SWIFT_PACKAGE"
+    rm -rf "/tmp/swift/$SWIFT_PACKAGE"
     touch "$CACHE_DIR/$STACK/swift-$SWIFT_VERSION.installed"
 fi
 
